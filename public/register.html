@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+</head>
+<body>
+  <header>
+    <!--Global Navigation-->
+    <nav>
+      <div class="logo">
+        <img src="assets/icons8-rabbit-64.png" />
+      </div>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="login">Login</a></li>
+        <li><a href="register">Register</a></li>
+        <li><a href="leaderboard">Leaderboard</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <!--Form with POST JS-->
+    <div class="form-section">
+      <form action="/join" method="POST">
+        <h1>Sign Up</h1>
+
+        <fieldset>
+          <label class="label-box"><strong>Name</strong></label>
+          <input class="input-box" type="name" name="userName" required>
+          <label class="label-box"><strong>Password</strong></label>
+          <input class="input-box" type="password" name="userPassword" required>
+        </fieldset>
+
+        <h2>Profile Picture</h2>
+
+        <fieldset class="profile-pic">
+          <ul>
+            <li>
+              <label>
+                <input type="radio" name="profile" value="pc" required>
+                <img src="assets/images/profile/pc.png" alt="pc icon">
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="radio" name="profile" value="playstation">
+                <img src="assets/images/profile/playstation.png" alt="playstation icon">
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="radio" name="profile" value="xbox">
+                <img src="assets/images/profile/xbox.png" alt="xbox icon">
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="radio" name="profile" value="nintendo-switch">
+                <img src="assets/images/profile/nintendo-switch.png" alt="nintendo switch icon">
+              </label>
+            </li>
+          </ul>
+        </fieldset>
+        <!--Submit button-->
+        <button class="submit-button" type="submit"><strong>Sign Up</strong></button>
+      </form>
+    </div>
+  </main>
+  <!--Footer-->
+  <footer class="footer-section">
+    <p class="footer-text">Fesal &copy;2021</p>
+  </footer>
+</body>
+</html>
