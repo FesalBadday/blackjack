@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <%- include('partials/header') %>
+    <title>Login</title>
+  </head>
+
+<body>
+  <header>
+    <!--Global Navigation-->
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="register">Sign Up</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <!--Form with POST JS-->
+    <div>
+      <form action="/login" method="POST">
+        <h1>Login</h1>
+        <% if (messages.error) { %>
+          <p class="err-msg"><%= messages.error %></p>
+        <% } %>
+        <fieldset>
+          <legend>Name</legend>
+          <input class="input-box" type="name" name="name" required>
+        </fieldset>
+        <fieldset>
+          <legend>Password</legend>
+          <input class="input-box" type="password" name="password" required>
+        </fieldset>
+        
+        <!--Submit button-->
+        <button class="submit-button" type="submit"><strong>Login</strong></button>
+      </form>
+    </div>
+  </main>
+</body>
+
+</html>
