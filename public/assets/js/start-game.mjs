@@ -17,15 +17,16 @@ export const startGame = () => {
   dealerScore = 0;
 
   for (let i = 0; i <= 3; i++) {
+    const randomCard = Math.floor(Math.random() * cardsArray.length)
 
-    let value = cardsArray[i].value;
+    let value = cardsArray[randomCard].value;
 
     if (value === 'ACE') {
       score = 11;
     } else if (value.length > 3) {
       score = 10;
     } else {
-      score = Number(cardsArray[i].value);
+      score = Number(cardsArray[randomCard].value);
     }
 
     if (i % 2 === 0) {
@@ -54,7 +55,7 @@ export const startGame = () => {
 
     score = 0;
 
-    output = `<img class='${playerOrDealer}' src='${cardsArray[i].image}' alt='${cardsArray[i].suit}'>`;
+    output = `<img class='${playerOrDealer}' src='${cardsArray[randomCard].image}' alt='${cardsArray[randomCard].suit}'>`;
 
     if (playerOrDealer === 'player') {
       playerCards.innerHTML += output;
@@ -86,7 +87,9 @@ export const playerHit = () => {
 
     displayPlayerScore.textContent = playerScore;
 
-    if (playerScore > 20) {
+    if (playerScore === 21) {
+      dealerHit();
+    } else if (playerScore > 21) {
       checkScore();
     }
   }
