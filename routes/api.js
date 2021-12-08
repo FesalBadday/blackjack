@@ -1,38 +1,44 @@
 /******************/
 /* Import Modules */
 /******************/
-const express = require('express') // import express module
+const express = require('express')
 const router = express.Router()
 router.use(express.json())
 router.use(express.urlencoded({ extended: true }))
 
-const LeaderBoard = require('../models/leaderboard') // import store module
-const Player = require('../models/register') // import subscriber module
+const bcrypt = require('bcrypt')
+const passport = require('passport')
+const flash = require('express-flash')
+const session = require('express-session')
 
-/* const bodyParser = require('body-parser')
-router.use(bodyParser.json())
-router.use(bodyParser.urlencoded({ extended: true })) */
+router.use(flash())
+router.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: { maxAge: 60 * 60 * 1000 }
+}))
 
+require('../passport-config')(passport); // passport config
 
-/******************/
-/*  Render Pages  */
-/******************/
+router.use(passport.initialize())
+router.use(passport.session())
+
+const Player = require('../models/register') // import schema module
+
+let getPlayerName = null
+router.get('/', playerAuthenticated, (req, res) => {
+  res.render('index', { name: req.user.userName })
+  getPlayerName = req.user.userName
+})
 
 router.post('/', async (req, res) => {
   try {
-    const newScore = await req.body.highestScore
-    playerName = await LeaderBoard.findOne({ userName: 'Test' }) // find all data
-
-    if (playerName === null) {
-      const newPlayer = new LeaderBoard(req.body)
-      await newPlayer.save() // save user
-      console.log(newPlayer)
-    } else {
+    if (getPlayerName !== null) {
+      const newScore = await req.body.highestScore
+      const playerName = await Player.findOne({ userName: getPlayerName }) // find all data
       if (newScore > playerName.highestScore) {
-        await LeaderBoard.findOneAndUpdate({ userName: playerName.userName }, { $set: { highestScore: newScore } }, { new: true })
-        console.log(`Player Is ${playerName.userName}`)
-        console.log(`New Score ${newScore}`)
-        console.log(`Old Score ${playerName.highestScore}`)
+        await Player.findOneAndUpdate({ userName: playerName.userName }, { $set: { highestScore: newScore } }, { new: true })
       }
     }
 
@@ -42,54 +48,73 @@ router.post('/', async (req, res) => {
   }
 })
 
-router.get('/public', async (req, res) => {
-  res.render('index')
-})
+router.get('/leaderboard', playerAuthenticated, (req, res) => res.render('leaderboard'))
 
-router.get('/public/login', (req, res) => {
-  res.render('login')
-})
-
-router.get('/public/register', (req, res) => {
-  res.render('register')
-})
-
-router.get('/public/leaderboard', (req, res) => {
-  res.render('leaderboard')
-})
-
-/* router.get('/404', (req, res) => {
-  res.render('404')
-}) */
+router.get('/404', (req, res) => res.render('404'))
 
 // get store data
 router.get('/players', async (req, res) => {
   try {
-    res.json(await LeaderBoard.find({ userName: 'test' })) // find all data
-  } catch (err) { // catch errors
-    console.log(err) // console log the error
-    res.send({ error: 'Players Not Found' }) // send JSON 404 error
+    res.json(await Player.find().limit(10).sort({ highestScore: -1 })) // find all data
+  } catch (e) { // catch errors
+    console.log(e) // console log the error
+    res.send({ error: 'No Players Were Found' }) // send JSON 404 error
   }
 })
 
+router.get('/login', playerNotAuthenticated, (req, res) => res.render('login'))
+
+router.post('/login', playerNotAuthenticated, passport.authenticate('local', {
+  successRedirect: '/',
+  failureRedirect: '/login',
+  failureFlash: true
+}))
+
+
+router.get('/register', playerNotAuthenticated, (req, res) => res.render('register'))
 // add new subscriber
-router.post('/join', async (req, res) => {
+router.post('/register', playerNotAuthenticated, async (req, res) => {
   try {
-    const newPlayer = new Player(req.body)
+    const hashedPassword = await bcrypt.hash(req.body.password, 10)
+    const newPlayer = new Player({
+      userName: req.body.name,
+      userPassword: hashedPassword
+    })
 
     await newPlayer.save() // save user
-    res.send('<h1>Congratulations, You’ve Joined Successfully!</h1><a href="login">Click Here To Go Back</a>')
-    console.log(newPlayer)
+    res.redirect('/login')
 
-  } catch (err) { // catch errors
+  } catch (e) { // catch errors
+    let errorMessage = '';
     // check if user is subscribed
-    if (err.code === 11000) {
-      res.send('<h1>You’re Already Registered!</h1><a href="login">Click Here To Login</a>')
+    if (e.code === 11000) {
+      errorMessage = 'Name already exists'
     } else {
-      res.send('<h1>Something Went Wrong!</h1><a href="register">Click Here To Go Back</a>')
+      errorMessage = 'Something Went Wrong!'
     }
-    console.log(err) // console log the error
+    res.render('register', { errorMessage })
+    console.log(e) // console log the error
   }
 })
+
+router.get('/logout', (req, res) => {
+  getPlayerName = null
+  req.logOut()
+  res.redirect('/login')
+})
+
+function playerAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next()
+  }
+  res.render('index', { name: '' })
+}
+
+function playerNotAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return res.redirect('/')
+  }
+  next()
+}
 
 module.exports = router // export router
