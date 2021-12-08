@@ -1,9 +1,7 @@
 "use strict";
 
-import { runGame } from './build-game.mjs';
-import { checkScore } from './check-score.mjs';
 import { cashInBank } from './check-score.mjs';
-import { playerHit, dealerHit } from './start-game.mjs';
+import { startGame, playerHit, dealerHit } from './start-game.mjs';
 
 export let playerCards = document.querySelector(".player-cards");
 export let dealerCards = document.querySelector(".dealer-cards");
@@ -21,16 +19,24 @@ let highestScore = 0;
 
 const start = () => {
   if (cashOnTable > 0) {
-    document.querySelector(".mydiv").style = "top: 79.5%;";
+    document.querySelector(".mydiv").style = "top: 79.6%;";
+    document.querySelector(".mydivheader").classList.toggle("wide");
     document.querySelector("h1").classList.toggle("hide-toggle");
     document.querySelector(".chips").classList.toggle("hide-toggle");
     document.querySelector(".deal").classList.toggle("hide-toggle");
+    document.querySelector(".all-in").classList.toggle("hide-toggle");
     document.querySelector(".clear").classList.toggle("hide-toggle");
     document.querySelector(".game-section").classList.toggle("hide-toggle");
-    runGame();
+    startGame();
   } else {
-    alert('select cash fisrt')
+    alert('Choose an amount to play with first')
   }
+};
+
+const allIn = () => {
+  cashOnTable = cashInBank;
+  bank.textContent = `Bank: ${cashInBank - cashOnTable}`;
+  playOn.textContent = `Play on: ${cashOnTable}`;
 };
 
 const clear = () => {
@@ -39,12 +45,16 @@ const clear = () => {
   playOn.textContent = `Play on: ${cashOnTable}`;
 };
 
-const restart = () => {
-  buildChips();
+const playeAgain = () => {
+  location.reload();
+};
 
-  document.querySelector(".mydiv").style = "top: 50%; left: 50%; transform: translate(-50%, -50%);";
+const restart = () => {
+  document.querySelector(".mydiv").style = "top: 60%; left: 50%; transform: translate(-50%, -50%);";
+  document.querySelector(".mydivheader").classList.toggle("wide");
   document.querySelector(".chips").classList.toggle("hide-toggle");
   document.querySelector(".deal").classList.toggle("hide-toggle");
+  document.querySelector(".all-in").classList.toggle("hide-toggle");
   document.querySelector(".clear").classList.toggle("hide-toggle");
 
   if (cashInBank > highestScore) {
@@ -54,7 +64,6 @@ const restart = () => {
       method: 'post',
       url: '/',
       data: {
-        userName: 'Test',
         highestScore: highestScore,
       }
     })
@@ -73,7 +82,7 @@ const restart = () => {
   playOn.textContent = `Play on: ${cashOnTable}`;
 
   toggleAction();
-  //runGame();
+  buildChips();
 };
 
 export const toggleAction = () => {
@@ -84,52 +93,48 @@ export const toggleAction = () => {
 };
 
 document.querySelector(".deal").addEventListener("click", start);
+document.querySelector(".all-in").addEventListener("click", allIn);
 document.querySelector(".clear").addEventListener("click", clear);
 document.querySelector(".hit").addEventListener("click", playerHit);
 document.querySelector(".stand").addEventListener("click", dealerHit);
 document.querySelector(".restart").addEventListener("click", restart);
+document.querySelector(".play-again").addEventListener("click", playeAgain);
 
 const buildChips = () => {
   if (cashInBank <= 0) {
-    document.querySelector(".score-output").classList.toggle("hide-toggle");
+    bank.textContent = 'You ran out of cash, but don’t worry because today is your LUCKY DAY!, here is another $1000 on us :)';
+    playOn.textContent = '';
     document.querySelector(".chips").classList.toggle("hide-toggle");
     document.querySelector(".deal").classList.toggle("hide-toggle");
+    document.querySelector(".all-in").classList.toggle("hide-toggle");
     document.querySelector(".clear").classList.toggle("hide-toggle");
-    console.log(scoreOutput.textContent)
     document.querySelector("h1").textContent = "Game Over!";
-    document.querySelector(".score-output p").textContent = 'You ran out of cash, but don’t worry because today is your LUCKY DAY!, here is another $1000 on us :)';
     document.querySelector(".play-again").classList.toggle("hide-toggle");
-    document.querySelector(".exit").classList.toggle("hide-toggle");
   } else {
-  bank1.innerHTML = '';
-  bank.textContent = `Bank: ${cashInBank}`;
-  playOn.textContent = `Play on: ${cashOnTable}`;
+    bank1.innerHTML = '';
+    bank.textContent = `Bank: ${cashInBank}`;
+    playOn.textContent = `Play on: ${cashOnTable}`;
 
-  for (let i = 100; i <= cashInBank; i += 100) {
-    if (i <= 1000) {
-      bank1.innerHTML += `<img class="chip" src='assets/images/chip-${i}.png' alt='chip-${i}'>`;
+    for (let i = 100; i <= cashInBank; i += 100) {
+      if (i <= 1000) {
+        bank1.innerHTML += `<img class="chip" src='assets/images/chip-${i}.png' alt='chip-${i}'>`;
+      }
     }
-  }
 
-  // select all btns and add click event
-  document.querySelectorAll('.chip').forEach(btn => {
-    btn.addEventListener("click", () => {
-      const cashOnHand = Number(btn.alt.split('-')[1]);
-      if (cashInBank <= 0) {
-        alert(highestScore)
-      } else {
+    // select all btns and add click event
+    document.querySelectorAll('.chip').forEach(btn => {
+      btn.addEventListener("click", () => {
+        const cashOnHand = Number(btn.alt.split('-')[1]);
         if (cashOnTable + cashOnHand <= cashInBank) {
-          let bankMoney = cashInBank;
           cashOnTable += cashOnHand;
-          bank.textContent = `Bank: ${bankMoney - cashOnTable}`;
+          bank.textContent = `Bank: ${cashInBank - cashOnTable}`;
           playOn.textContent = `Play on: ${cashOnTable}`;
         } else {
           alert('Not enough cash')
         }
-      }
+      });
     });
-  });
-}
+  }
 }
 
 buildChips();
