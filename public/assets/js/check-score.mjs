@@ -13,23 +13,22 @@ export const checkScore = () => {
   const checkMaxScore = Math.max(playerScore, dealerScore);
   const checkMinScore = Math.min(playerScore, dealerScore);
 
-  if (dealerScore === 21) {
+  if (checkMaxScore <= 21 && playerScore === dealerScore) {
+    scoreOutput.textContent = 'Push';
+  } else if (dealerScore === 21) {
     scoreOutput.textContent = 'Blackjack!. Dealer Wins :(';
     cashInBank = cashInBank - cashOnTable;
   } else if (playerScore === 21) {
     scoreOutput.textContent = 'Blackjack!. You Win :)';
     cashInBank = cashInBank + cashOnTable;
-  } else if (checkMaxScore <= 20 && playerScore === dealerScore) {
-    scoreOutput.textContent = 'Draw. Dealer Wins :(';
-    cashInBank = cashInBank - cashOnTable;
   } else if (checkMinScore > 21) {
     scoreOutput.textContent = 'You Both Lost -_-';
     cashInBank = cashInBank - cashOnTable;
   } else if (checkMaxScore <= 20 && checkMaxScore === playerScore) {
-    scoreOutput.textContent = 'Congratulations You Win!';
+    scoreOutput.textContent = 'Congratulations. You Win!';
     cashInBank = cashInBank + cashOnTable;
   } else if (checkMaxScore > 21 && checkMinScore === playerScore) {
-    scoreOutput.textContent = 'Congratulations You Win!';
+    scoreOutput.textContent = 'Congratulations. You Win!';
     cashInBank = cashInBank + cashOnTable;
   } else {
     scoreOutput.textContent = 'You Lost. Dealer Wins :(';
