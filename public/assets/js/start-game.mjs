@@ -2,7 +2,7 @@
 
 import { cardsArray } from './build-game.mjs';
 import { checkScore, cashInBank } from './check-score.mjs';
-import { playerCards, dealerCards, displayPlayerScore, displayDealerScore } from './client.js';
+import { playerCards, dealerCards, displayPlayerScore, displayDealerScore, doubled } from './client.js';
 
 export let playerScore;
 export let dealerScore;
@@ -69,6 +69,7 @@ export const startGame = () => {
 }
 
 export const playerHit = () => {
+  document.querySelector(".double").style.visibility = "hidden";
   if (cashInBank <= 0) {
     checkScore();
   } else {
@@ -91,6 +92,8 @@ export const playerHit = () => {
       dealerHit();
     } else if (playerScore > 21) {
       checkScore();
+    } else if (doubled) {
+      dealerHit();
     }
   }
 };
