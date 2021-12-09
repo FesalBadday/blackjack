@@ -17,7 +17,7 @@ const path = require('path') // import path module
 // view engine setup
 app.set('views', path.join(__dirname, 'public'))
 // setting view engine
-app.set('view engine','ejs')
+app.set('view engine', 'ejs')
 
 // Serve static files using middleware
 app.use(express.static('public'))
