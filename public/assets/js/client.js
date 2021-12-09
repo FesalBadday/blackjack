@@ -14,6 +14,7 @@ export let bank1 = document.querySelector(".chips");
 // errorMsg variable
 export const errorMsg = document.querySelector('.start-section')
 
+export let doubled = false;
 export let cashOnTable = 0;
 let highestScore = 0;
 
@@ -49,11 +50,24 @@ const playeAgain = () => {
   location.reload();
 };
 
+const double = () => {
+  doubled = true;
+  if (cashOnTable * 2 <= cashInBank) {
+    cashOnTable = cashOnTable * 2;
+    bank.textContent = `Bank: ${cashInBank - cashOnTable}`;
+    playOn.textContent = `Play on: ${cashOnTable}`;
+    playerHit();
+  } else {
+    alert('Not enough cash')
+  }
+}
+
 const restart = () => {
   document.querySelector(".mydiv").style = "top: 60%; left: 50%; transform: translate(-50%, -50%);";
   document.querySelector(".mydivheader").classList.toggle("wide");
   document.querySelector(".chips").classList.toggle("hide-toggle");
   document.querySelector(".deal").classList.toggle("hide-toggle");
+  document.querySelector(".double").style.visibility = "visible";
   document.querySelector(".all-in").classList.toggle("hide-toggle");
   document.querySelector(".clear").classList.toggle("hide-toggle");
 
@@ -72,6 +86,7 @@ const restart = () => {
   document.querySelector("h1").classList.toggle("hide-toggle");
   document.querySelector(".game-section").classList.toggle("hide-toggle");
 
+  doubled = false;
   cashOnTable = 0;
   playerCards.innerHTML = '';
   dealerCards.innerHTML = '';
@@ -88,6 +103,7 @@ const restart = () => {
 export const toggleAction = () => {
   document.querySelector(".score-output").classList.toggle("hide-toggle");
   document.querySelector(".restart").classList.toggle("hide-toggle");
+  document.querySelector(".double").classList.toggle("hide-toggle");
   document.querySelector(".stand").classList.toggle("hide-toggle");
   document.querySelector(".hit").classList.toggle("hide-toggle");
 };
@@ -96,6 +112,7 @@ document.querySelector(".deal").addEventListener("click", start);
 document.querySelector(".all-in").addEventListener("click", allIn);
 document.querySelector(".clear").addEventListener("click", clear);
 document.querySelector(".hit").addEventListener("click", playerHit);
+document.querySelector(".double").addEventListener("click", double);
 document.querySelector(".stand").addEventListener("click", dealerHit);
 document.querySelector(".restart").addEventListener("click", restart);
 document.querySelector(".play-again").addEventListener("click", playeAgain);
