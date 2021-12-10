@@ -10,7 +10,7 @@ export let displayDealerScore = document.querySelector(".dealer-score");
 export let scoreOutput = document.querySelector(".score-output p");
 export let bank = document.querySelector(".bank span");
 export let playOn = document.querySelector(".play-on");
-export let bank1 = document.querySelector(".chips");
+export let chips = document.querySelector(".chips");
 // errorMsg variable
 export const errorMsg = document.querySelector('.start-section')
 
@@ -51,7 +51,7 @@ const clear = () => {
 };
 
 const playeAgain = () => {
-  location.reload();
+  location.replace("/")
 };
 
 const double = () => {
@@ -132,13 +132,13 @@ const buildChips = () => {
     document.querySelector("h1").textContent = "Game Over!";
     document.querySelector(".play-again").classList.toggle("hide-toggle");
   } else {
-    bank1.innerHTML = '';
+    chips.innerHTML = '';
     bank.textContent = `Bank: ${cashInBank}`;
     playOn.textContent = `Play on: ${cashOnTable}`;
 
     for (let i = 100; i <= cashInBank; i += 100) {
       if (i <= 1000) {
-        bank1.innerHTML += `<img class="chip" src='assets/images/chip-${i}.png' alt='chip-${i}'>`;
+        chips.innerHTML += `<img class="chip" src='assets/images/chip-${i}.png' alt='chip-${i}'>`;
       }
     }
 
