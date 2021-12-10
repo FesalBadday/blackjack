@@ -210,7 +210,7 @@ th {
   padding: .8rem;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 600px) {
   body {
     font-size: 1.5rem;
   }
@@ -266,10 +266,6 @@ th {
   input {
     font-size: 1.5rem;
     width: 16rem;
-  }
-
-  .mydiv {
-    margin-top: auto;
   }
 
   .mydivheader {

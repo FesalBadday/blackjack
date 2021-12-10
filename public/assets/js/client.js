@@ -20,7 +20,11 @@ let highestScore = 0;
 
 const start = () => {
   if (cashOnTable > 0) {
-    document.querySelector(".mydiv").style = "top: 79.6%;";
+    if (screen.width <= 600) {
+      document.querySelector(".mydiv").style = "top: 116%;";
+    } else {
+      document.querySelector(".mydiv").style = "top: 79.6%;";
+    }
     document.querySelector(".mydivheader").classList.toggle("wide");
     document.querySelector("h1").classList.toggle("hide-toggle");
     document.querySelector(".chips").classList.toggle("hide-toggle");
