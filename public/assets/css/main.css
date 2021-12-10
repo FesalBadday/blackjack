@@ -56,7 +56,6 @@ button {
   font-weight: bold;
   z-index: 1;
   padding: 1.5rem 3rem;
-  margin-bottom: auto;
   background-color: #0ab7dd;
   border-radius: 1rem;
   border: none;
@@ -96,7 +95,7 @@ img:hover {
   font-size: 3rem;
   border-radius: 1.5rem;
   display: block;
-  width: 43%;
+  width: 40%;
   height: 40%;
   text-align: center;
   position: absolute;
@@ -211,9 +210,80 @@ th {
   padding: .8rem;
 }
 
+@media (max-width: 500px) {
+  body {
+    font-size: 1.5rem;
+  }
+
+  nav {
+    justify-content: space-evenly;
+  }
+
+  h1 {
+    font-size: 3rem;
+  }
+
+  .player-cards img, .dealer-cards img, .error img {
+    width: 8rem;
+    margin: 3.6rem -2.6rem;
+    rotate: 1;
+    transform: rotate(15deg);
+  }
+
+  button {
+    font-size: 1.5rem;
+    padding: 1rem 1rem;
+  }
+  
+  .player-score, .dealer-score, .bank {
+    font-size: 1.5rem;
+  }
+
+  .score-output {
+    font-size: 1.5rem;
+    width: 90%;
+    height: 15%;
+  }
+
+  .action {
+    display: block;
+    text-align: center;
+  }
+
+  .action button {
+    margin: 18px 0;
+  }
+
+  .action button, .action h2, .action span {
+    font-size: 1rem;
+  }
+
+  form {
+    margin: 6rem auto;
+    width: 80%;
+  }
+
+  input {
+    font-size: 1.5rem;
+    width: 16rem;
+  }
+
+  .mydiv {
+    margin-top: auto;
+  }
+
+  .mydivheader {
+    width: 350px;
+  }
+
+  .mydivheader img {
+    width: 60px;
+  }
+}
+
 @media (max-width: 1920px) {
   .score-output {
-    top: 35%;
+    top: 40%;
   }
 }
 
@@ -221,6 +291,6 @@ th {
   .score-output {
     width: 33%;
     height: 30%;
-    top: 25%;
+    top: 30%;
   }
 }
