@@ -55,11 +55,11 @@ const playeAgain = () => {
 };
 
 const double = () => {
-  doubled = true;
   if (cashOnTable * 2 <= cashInBank) {
     cashOnTable = cashOnTable * 2;
     bank.textContent = `Bank: ${cashInBank - cashOnTable}`;
     playOn.textContent = `Play on: ${cashOnTable}`;
+    doubled = true;
     playerHit();
   } else {
     alert('Not enough cash')
