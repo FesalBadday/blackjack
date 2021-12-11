@@ -103,7 +103,7 @@ export const dealerHit = () => {
     checkScore();
   } else {
     do {
-      if (dealerScore < 28) {
+      if (dealerScore < 18) {
         const randomCard = Math.floor(Math.random() * cardsArray.length)
         dealerCards.innerHTML += `<img class='dealer' src='${cardsArray[randomCard].image}' alt='${cardsArray[randomCard].suit}'>`;
 
@@ -118,7 +118,7 @@ export const dealerHit = () => {
         }
       }
     }
-    while (dealerScore < 28)
+    while (dealerScore < 18)
     checkScore();
   }
 };
