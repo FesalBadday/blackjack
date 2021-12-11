@@ -82,7 +82,7 @@ const restart = () => {
       method: 'post',
       url: '/',
       data: {
-        highestScore: highestScore,
+        highestScore: highestScore
       }
     })
   }

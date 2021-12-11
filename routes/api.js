@@ -26,17 +26,17 @@ router.use(passport.session())
 
 const Player = require('../models/register') // import schema module
 
-let getPlayerName = null
 router.get('/', playerAuthenticated, (req, res) => {
   res.render('index', { name: req.user.userName })
-  getPlayerName = req.user.userName
 })
 
 router.post('/', async (req, res) => {
   try {
-    if (getPlayerName !== null) {
+    if (req.user) {
       const newScore = await req.body.highestScore
-      const playerName = await Player.findOne({ userName: getPlayerName }) // find all data
+      const playerName = await Player.findOne({ userName: req.user.userName }) // find all data
+      console.log(req.user.userName)
+      console.log(playerName)
       if (newScore > playerName.highestScore) {
         await Player.findOneAndUpdate({ userName: playerName.userName }, { $set: { highestScore: newScore } }, { new: true })
       }
@@ -98,7 +98,6 @@ router.post('/register', playerNotAuthenticated, async (req, res) => {
 })
 
 router.get('/logout', (req, res) => {
-  getPlayerName = null
   req.logOut()
   res.redirect('/login')
 })
