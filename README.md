@@ -10,8 +10,13 @@
 
 **Rules :**
 
+- The goal of the game is to beat the dealer's hand without going over 21.
+- Face cards are worth 10. Aces are worth 1 or 11, whichever makes a better hand.
+- Each player starts with two cards, one of the dealer's cards is hidden until the end.
+- A push is when you and the dealer have the same hand value. When this happens your bet will be returned. You don't win anything and you don't lose anything.
 - Hit: Take another card.
 - Stand: Take no more cards.
+- All In: You play with all of your money.
 - Double X2: Increase the initial bet by 100% and take exactly one more card.
 - The dealer stands on 18.
 - A double is only allowed in the first round.
