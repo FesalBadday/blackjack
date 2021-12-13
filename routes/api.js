@@ -35,8 +35,6 @@ router.post('/', async (req, res) => {
     if (req.user) {
       const newScore = await req.body.highestScore
       const playerName = await Player.findOne({ userName: req.user.userName }) // find all data
-      console.log(req.user.userName)
-      console.log(playerName)
       if (newScore > playerName.highestScore) {
         await Player.findOneAndUpdate({ userName: playerName.userName }, { $set: { highestScore: newScore } }, { new: true })
       }
@@ -49,6 +47,8 @@ router.post('/', async (req, res) => {
 })
 
 router.get('/leaderboard', playerAuthenticated, (req, res) => res.render('leaderboard'))
+
+router.get('/rules', (req, res) => res.render('rules'))
 
 router.get('/404', (req, res) => res.render('404'))
 

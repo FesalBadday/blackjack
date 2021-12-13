@@ -21,7 +21,7 @@ let highestScore = 0;
 const start = () => {
   if (cashOnTable > 0) {
     if (screen.width <= 600) {
-      document.querySelector(".mydiv").style = "top: 116%;";
+      document.querySelector(".mydiv").style = "top: 120%;";
     } else {
       document.querySelector(".mydiv").style = "top: 79.6%;";
     }
