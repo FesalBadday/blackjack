@@ -1,15 +1,17 @@
 "use strict";
 
-import { cardsArray } from './build-game.mjs';
+import { cardsArray, runGame } from './build-game.mjs';
 import { checkScore, cashInBank } from './check-score.mjs';
 import { playerCards, dealerCards, displayPlayerScore, displayDealerScore, doubled } from './client.js';
 
 export let playerScore;
 export let dealerScore;
+export let dealerHiddenCard = [];
 
 export const startGame = () => {
   // output variable
   let output = '';
+  let value = '';
   let score = 0;
   let playerOrDealer = '';
   let hideScore = 0;
@@ -19,7 +21,11 @@ export const startGame = () => {
   for (let i = 0; i <= 3; i++) {
     const randomCard = Math.floor(Math.random() * cardsArray.length)
 
-    let value = cardsArray[randomCard].value;
+    if (cardsArray.length === 0) {
+      runGame();
+    } else {
+      value = cardsArray[randomCard].value;
+    }
 
     if (value === 'ACE') {
       score = 11;
@@ -40,7 +46,8 @@ export const startGame = () => {
     } else {
 
       if (i === 1) {
-        playerOrDealer = 'dealer hide';
+        dealerHiddenCard = [];
+        playerOrDealer = 'hidden-card';
         hideScore = score;
       } else {
         playerOrDealer = 'dealer';
@@ -55,7 +62,12 @@ export const startGame = () => {
 
     score = 0;
 
-    output = `<img class='${playerOrDealer}' src='${cardsArray[randomCard].image}' alt='${cardsArray[randomCard].suit}'>`;
+    if (playerOrDealer === 'hidden-card') {
+      dealerHiddenCard.push(cardsArray[randomCard].image, cardsArray[randomCard].suit);
+      output = `<img class='${playerOrDealer}' src='assets/images/hide.png' alt='secret'>`;
+    } else {
+      output = `<img class='${playerOrDealer}' src='${cardsArray[randomCard].image}' alt='${cardsArray[randomCard].suit}'>`;
+    }
 
     if (playerOrDealer === 'player') {
       playerCards.innerHTML += output;

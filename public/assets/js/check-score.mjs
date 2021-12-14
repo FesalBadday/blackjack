@@ -1,12 +1,13 @@
 "use strict";
 
-import { playerScore, dealerScore } from './start-game.mjs';
+import { playerScore, dealerScore, dealerHiddenCard } from './start-game.mjs';
 import { displayDealerScore, toggleAction, scoreOutput, cashOnTable } from './client.js';
 
 export let cashInBank = 1000;
 
 export const checkScore = () => {
-  document.querySelector(".dealer").classList.toggle("hide");
+  document.querySelector(".hidden-card").src = dealerHiddenCard[0];
+  document.querySelector(".hidden-card").alt = dealerHiddenCard[1];
   displayDealerScore.textContent = dealerScore;
   toggleAction();
 
