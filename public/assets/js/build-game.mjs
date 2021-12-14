@@ -32,9 +32,7 @@ export const runGame = async () => {
     }
 
   } catch (e) { // catch errors
-    abort();
     console.log('Caught an error!', e)
-    location.replace("404");
   }
 }
 

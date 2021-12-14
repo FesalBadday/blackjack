@@ -11,23 +11,20 @@ export let dealerHiddenCard = [];
 export const startGame = () => {
   // output variable
   let output = '';
-  let value = '';
   let score = 0;
   let playerOrDealer = '';
   let hideScore = 0;
   playerScore = 0;
   dealerScore = 0;
 
+  do {
+    runGame();
+  }
+  while (cardsArray.length === 0)
   for (let i = 0; i <= 3; i++) {
     const randomCard = Math.floor(Math.random() * cardsArray.length)
 
-    if (cardsArray.length === 0) {
-      console.log('Error while loading the data')
-      runGame();
-      console.log('Data loaded again')
-    } else {
-      value = cardsArray[randomCard].value;
-    }
+    let value = cardsArray[randomCard].value;
 
     if (value === 'ACE') {
       score = 11;

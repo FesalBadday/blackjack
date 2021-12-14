@@ -32,6 +32,7 @@ const start = () => {
     document.querySelector(".all-in").classList.toggle("hide-toggle");
     document.querySelector(".clear").classList.toggle("hide-toggle");
     document.querySelector(".game-section").classList.toggle("hide-toggle");
+
     startGame();
 
     axios({
@@ -41,7 +42,7 @@ const start = () => {
         newGame: true
       }
     })
-    
+
   } else {
     alert('Choose an amount to play with first')
   }
