@@ -218,6 +218,11 @@ th {
   animation: fadeIn 1.5s ease-in;
 }
 
+.rules li {
+  font-size: clamp(1.2rem, 2vw, 2rem);
+  padding-bottom: 1.5rem;
+}
+
 @media (max-width: 600px) {
   body {
     font-size: 1.5rem;
@@ -248,7 +253,7 @@ th {
     font-size: 1.5rem;
     padding: 1rem 1rem;
   }
-  
+
   .player-score, .dealer-score, .bank {
     font-size: 1.5rem;
   }
