@@ -25,6 +25,17 @@
 
 ---
 
+## Bug hunt:
+
+- Basically, try to break the game. 
+- Keep hitting the Deal, All In, Stand, Double and Hit buttons and try to make the game freeze.
+- Keep refreshing the home page then make a deal and see if you will get cards or not.
+- Try to login with wrong name/password.
+- Try to register with the same name twice. Please note that it's case sensitive.
+- Keep hitting the chips and see if you can play on more than what you have in the bank.
+
+---
+
 ## Attributions :
 
 - [Aclonica](https://fonts.google.com/specimen/Aclonica) Font By [Astigmatic](https://fonts.google.com/?query=Astigmatic) From [Google Fonts](https://fonts.google.com). [License](https://developers.google.com/fonts).
