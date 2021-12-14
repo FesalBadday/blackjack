@@ -11,6 +11,10 @@ const playersSchema = new mongoose.Schema({
     type: Number,
     default: 0
   },
+  gamesPlayed: {
+    type: Number,
+    default: 0
+  },
   dateSigned: {
     type: String,
     default: new Date().toISOString().split('T')[0]

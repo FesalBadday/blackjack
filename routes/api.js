@@ -34,9 +34,14 @@ router.post('/', async (req, res) => {
   try {
     if (req.user) {
       const newScore = await req.body.highestScore
+      const newGame = await req.body.newGame
       const playerName = await Player.findOne({ userName: req.user.userName }) // find all data
+      const timesPlayed = playerName.gamesPlayed + 1
+      
       if (newScore > playerName.highestScore) {
         await Player.findOneAndUpdate({ userName: playerName.userName }, { $set: { highestScore: newScore } }, { new: true })
+      } else if (newGame) {
+        await Player.findOneAndUpdate({ userName: playerName.userName }, { $set: { gamesPlayed: timesPlayed } }, { new: true })
       }
     }
 

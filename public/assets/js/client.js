@@ -33,6 +33,15 @@ const start = () => {
     document.querySelector(".clear").classList.toggle("hide-toggle");
     document.querySelector(".game-section").classList.toggle("hide-toggle");
     startGame();
+
+    axios({
+      method: 'post',
+      url: '/',
+      data: {
+        newGame: true
+      }
+    })
+    
   } else {
     alert('Choose an amount to play with first')
   }

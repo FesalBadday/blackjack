@@ -31,6 +31,7 @@ const fetchData = async () => {
             <td>${player.userName}</td>
             <td>${player.highestScore}</td>
             <td>${player.dateSigned}</td>
+            <td>${player.gamesPlayed}</td>
           </tr>`;
       })
     } else {
