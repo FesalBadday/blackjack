@@ -60,7 +60,7 @@ router.get('/404', (req, res) => res.render('404'))
 // get store data
 router.get('/players', async (req, res) => {
   try {
-    res.json(await Player.find().limit(20).sort({ highestScore: -1 })) // find all data
+    res.json(await Player.find().limit(10).sort({ highestScore: -1 })) // find all data
   } catch (e) { // catch errors
     console.log(e) // console log the error
     res.send({ error: 'No Players Were Found' }) // send JSON 404 error
