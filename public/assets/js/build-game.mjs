@@ -29,11 +29,10 @@ export const runGame = async () => {
       for (let i = 0; i < data.cards.length; i++) {
         cardsArray.push(data.cards[i]);
       }
-
-      //startGame();
     }
 
   } catch (e) { // catch errors
+    abort();
     console.log('Caught an error!', e)
     location.replace("404");
   }
