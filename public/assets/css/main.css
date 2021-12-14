@@ -199,6 +199,7 @@ table {
   text-align: center;
   margin: auto;
   animation: fadeIn 1.5s ease-in;
+  margin-bottom: 4rem;
 }
 
 th, td {
