@@ -22,7 +22,9 @@ export const startGame = () => {
     const randomCard = Math.floor(Math.random() * cardsArray.length)
 
     if (cardsArray.length === 0) {
+      console.log('Error while loading the data')
       runGame();
+      console.log('Data loaded again')
     } else {
       value = cardsArray[randomCard].value;
     }
