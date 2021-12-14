@@ -33,6 +33,7 @@
 - Try to login with wrong name/password.
 - Try to register with the same name twice. Please note that it's case sensitive.
 - Keep hitting the chips and see if you can play on more than what you have in the bank.
+- Try the game with different browsers like Chrome and Firefox.
 
 ---
 
