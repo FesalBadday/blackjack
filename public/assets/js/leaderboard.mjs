@@ -21,13 +21,14 @@ const fetchData = async () => {
 
     // output variable
     let output = '';
-
+    let i = 1;
     // check if data isn't undefined and it's an array
     if (typeof data !== 'undefined' && Array.isArray(data)) {
       // for loop to build the data
       data.forEach((player) => {
         output += `
           <tr>
+            <td>${i++}.</td>
             <td>${player.userName}</td>
             <td>${player.highestScore}</td>
             <td>${player.dateSigned}</td>
